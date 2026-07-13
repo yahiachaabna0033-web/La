@@ -1,0 +1,23 @@
+name: Unzip Project
+
+on:
+  workflow_dispatch:
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Unzip BoosteroidChecker
+        run: |
+          unzip BoosteroidChecker.zip -d extracted
+          ls extracted/
+
+      - name: Upload extracted files
+        uses: actions/upload-artifact@v3
+        with:
+          name: BoosteroidChecker-extracted
+          path: extracted/
