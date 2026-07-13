@@ -11,19 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Unzip and find project
+      - name: Unzip project
         run: |
           unzip BoosteroidChecker.zip -d extracted
-          echo "=== Level 1 ==="
-          ls extracted/
-          echo "=== Level 2 ==="
-          ls extracted/BoosteroidChecker/
-          echo "=== Finding gradlew ==="
-          find extracted -name "gradlew" -type f
-          GRADLEW_PATH=$(find extracted -name "gradlew" -type f | head -1)
-          PROJECT_DIR=$(dirname $GRADLEW_PATH)
-          echo "Found at: $PROJECT_DIR"
-          cp -r $PROJECT_DIR/. .
+          cp -r extracted/BoosteroidChecker/. .
+          ls -la
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -33,6 +25,10 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+
+      - name: Generate gradlew
+        run: |
+          gradle wrapper --gradle-version 8.2 --distribution-type bin
 
       - name: Grant gradlew permission
         run: chmod +x gradlew
