@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Unzip BoosteroidChecker
         run: |
@@ -17,7 +17,7 @@ jobs:
           ls extracted/
 
       - name: Upload extracted files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: BoosteroidChecker-extracted
           path: extracted/
